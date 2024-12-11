@@ -1,0 +1,25 @@
+{
+  "short_name": "PAIKBOOKER",
+  "name": "Create React App Sample",
+  "icons": [
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/kh-basic-frontend-react-f5a7b.firebasestorage.app/o/PAIKBOOKER%2FFAVICON_TEXT.ico?alt=media&token=8c679ba7-acf8-4b12-a93b-585149695112",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/kh-basic-frontend-react-f5a7b.firebasestorage.app/o/PAIKBOOKER%2FPAIKBOOKER_192.png?alt=media&token=631ae4f9-6a4a-45b0-986c-924c8d819ade",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/kh-basic-frontend-react-f5a7b.firebasestorage.app/o/PAIKBOOKER%2FPAIKBOOKER_512.png?alt=media&token=39be38ce-ce14-44a4-88e1-12a38727f269",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

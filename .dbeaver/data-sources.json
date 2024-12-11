@@ -1,0 +1,43 @@
+{
+	"folders": {},
+	"connections": {
+		"oracle_thin-19376947b44-2b8aa684f54768f8": {
+			"provider": "oracle",
+			"driver": "oracle_thin",
+			"name": "PAIKBOOKER",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "1521",
+				"database": "XE",
+				"url": "jdbc:oracle:thin:@//localhost:1521/XE",
+				"configurationType": "MANUAL",
+				"home": "C:\\oraclexe\\app\\oracle\\product\\11.2.0\\server",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"provider-properties": {
+					"@dbeaver-connection-type@": "BASIC",
+					"@dbeaver-sid-service@": "SERVICE"
+				},
+				"auth-model": "oracle_native"
+			}
+		}
+	},
+	"virtual-models": {"oracle_thin-19376947b44-2b8aa684f54768f8":{"PAIKBOOKER":{"@properties":{"erd.diagram.state":{"serialized":"\u003cdiagram version\u003d\"1\" name\u003d\"empty\" time\u003d\"202412051329\"\u003e\u003centities\u003e\u003cdata-source id\u003d\"oracle_thin-19376947b44-2b8aa684f54768f8\"\u003e\u003centity id\u003d\"1\" name\u003d\"BRAND_TB\" fq-name\u003d\"PAIKBOOKER.BRAND_TB\" order\u003d\"0\" font\u003d\"Segoe UI:9:0\" x\u003d\"41\" y\u003d\"295\"\u003e\u003cpath name\u003d\"PAIKBOOKER\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"2\" name\u003d\"MENU_TB\" fq-name\u003d\"PAIKBOOKER.MENU_TB\" order\u003d\"1\" font\u003d\"Segoe UI:9:0\" x\u003d\"39\" y\u003d\"138\"\u003e\u003cpath name\u003d\"PAIKBOOKER\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"3\" name\u003d\"RESERVATION_TB\" fq-name\u003d\"PAIKBOOKER.RESERVATION_TB\" order\u003d\"2\" font\u003d\"Segoe UI:9:0\" x\u003d\"381\" y\u003d\"109\"\u003e\u003cpath name\u003d\"PAIKBOOKER\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"4\" name\u003d\"REVIEW_TB\" fq-name\u003d\"PAIKBOOKER.REVIEW_TB\" order\u003d\"3\" font\u003d\"Segoe UI:9:0\" x\u003d\"387\" y\u003d\"380\"\u003e\u003cpath name\u003d\"PAIKBOOKER\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"5\" name\u003d\"STORE_TB\" fq-name\u003d\"PAIKBOOKER.STORE_TB\" order\u003d\"4\" font\u003d\"Segoe UI:9:0\" x\u003d\"217\" y\u003d\"264\"\u003e\u003cpath name\u003d\"PAIKBOOKER\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"6\" name\u003d\"USER_TB\" fq-name\u003d\"PAIKBOOKER.USER_TB\" order\u003d\"5\" font\u003d\"Segoe UI:9:0\" x\u003d\"221\" y\u003d\"30\"\u003e\u003cpath name\u003d\"PAIKBOOKER\"/\u003e\u003c/entity\u003e\u003c/data-source\u003e\u003c/entities\u003e\u003crelations\u003e\u003crelation name\u003d\"FK_MENU_BRAND\" fq-name\u003d\"PAIKBOOKER.MENU_TB.FK_MENU_BRAND\" type\u003d\"fk\" pk-ref\u003d\"1\" fk-ref\u003d\"2\"/\u003e\u003crelation name\u003d\"FK_REVIEW_RESERVATION\" fq-name\u003d\"PAIKBOOKER.REVIEW_TB.FK_REVIEW_RESERVATION\" type\u003d\"fk\" pk-ref\u003d\"3\" fk-ref\u003d\"4\"/\u003e\u003c/relations\u003e\u003c/diagram\u003e"}}}}},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"smart-commit": false,
+			"smart-commit-recover": true,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 14400
+		}
+	}
+}

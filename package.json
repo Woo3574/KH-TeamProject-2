@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "eslint": "^8.57.1",
+    "react-script": "^2.0.5",
+    "react-scripts": "^3.0.1",
+    "rimraf": "^6.0.1",
+    "svgo": "^3.3.2",
+    "workbox-cacheable-response": "^7.3.0",
+    "workbox-google-analytics": "^7.3.0"
+  }
+}
