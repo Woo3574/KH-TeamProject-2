@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AxiosApi from "../../api/AxiosApi";
 import styled from "styled-components";
@@ -107,65 +107,101 @@ const SortBy = styled.div`
 `;
 
 const BrandStoresBlock = styled.div`
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-  }
-  .brandWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 40px;
-  }
-  .brandLogo {
-    width: 1680px;
-    height: 300px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: #f1f1f1;
-    border-radius: 10px;
-  }
-  .stores {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    width: 80%;
-    margin-top: 20px;
-  }
-  .storeBox {
-    width: 100%;
-    height: 276px;
-    background-color: #f1f1f1;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-  }
-  .storeBoxUp {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  .storeBoxDown {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-  }
-  .storeName {
-    font-size: 16px;
-  }
-  .storeInfo {
-    font-size: 14px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+`;
+
+const BrandContainer = styled.div`
+  width: 1280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  background-color: #e3e3e3;
+  border-radius: 10px;
+`;
+
+const BrandLogo = styled.div`
+  width: 300px;
+  height: 300px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10px;
+`;
+
+const StoresContainer = styled.div`
+  width: 1280px;
+  padding-left: 3.5px;
+  padding-bottom: 100px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  justify-content: baseline;
+  gap: 20px;
+`;
+
+const EachStore = styled.div`
+  box-sizing: border-box;
+  width: 195px;
+  height: 160px;
+  border-radius: 10px;
+  background-color: #e3e3e3;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
+
+const EachImage = styled.div`
+  box-sizing: border-box;
+  width: 195px;
+  height: 140px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+`;
+
+const EachTextContainer = styled.div`
+  box-sizing: border-box;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+`;
+
+const EachText1 = styled.div`
+  box-sizing: border-box;
+  width: 175px;
+  padding-top: 5px;
+  height: 24px;
+  font-size: 0.8em;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: no;
+  overflow: hidden;
+`;
+
+const EachText2 = styled.div`
+  box-sizing: border-box;
+  font-size: 0.7em;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  transition: color 0.3s;
 `;
 
 const BrandWindow = () => {
@@ -206,12 +242,10 @@ const BrandWindow = () => {
     return <div>{error}</div>;
   }
 
-
-
   const sortedStores = brandData.stores
     ? brandData.stores.sort((a, b) => {
         if (sortType === "rating") {
-          return b.avgRatingVO.averageRating - a.avgRatingVO.averageRating
+          return b.avgRatingVO.averageRating - a.avgRatingVO.averageRating;
         } else if (sortType === "name") {
           return a.storeName.localeCompare(b.storeName);
         }
@@ -221,7 +255,7 @@ const BrandWindow = () => {
 
   return (
     <>
-       <SortBy>
+      <SortBy>
         <button
           onClick={() => {
             setSortType("name");
@@ -251,45 +285,49 @@ const BrandWindow = () => {
         </button>
       </SortBy>
       <BrandStoresBlock>
-        <div className="container">
-          <div className="brandWrapper">
-            {/* 브랜드 로고 이미지 */}
-            <div
-              className="brandLogo"
-              style={{ backgroundImage: `url(${brandData[0].brandVO.brandLogo2 || 'defaultLogoURL'})` }}
-            />
-          </div>
+        <BrandContainer>
+          <BrandLogo
+            style={{
+              backgroundImage: `url(${
+                brandData[0].brandVO.brandLogo2 || "defaultLogoURL"
+              })`,
+            }}
+          />
+        </BrandContainer>
 
-          <div className="stores">
-            {brandData.map((store) => (
-              <div className="storeBox" key={store.storeNo}>
-                <div
-                  className="storeBoxUp"
+        <StoresContainer>
+          {brandData.map((store) => (
+            <StyledLink to={`/stores/${store.storeNo}`} key={store.storeNo}>
+              <EachStore key={store.storeNo}>
+                <EachImage
                   style={{
-                    backgroundImage: `url(${store.brandVO.brandImg || 'defaultImageURL'})`, // 기본 이미지 URL 사용
+                    backgroundImage: `url(${
+                      store.brandVO.brandImg1 || "defaultImageURL"
+                    })`, // 기본 이미지 URL 사용
                   }}
                 />
-                <div className="storeBoxDown">
-                  <div className="storeName">{store.storeName}</div>
-                  <div className="storeInfo">
-                  <p style={{ color: "RED", display: "inline" }}>★ </p>
-                        <p style={{ display: "inline" }}>
-                          {store.avgRatingVO.averageRating}
-                        </p>
-                  <p 
-                  style={{
-                  color: "#a4a4a4",
-                  display: "inline",
-                  fontSize: "13px",
-                  }} >
-                  {store.brandVO.brandFood}ㆍ{store.storeAddr}
-                  </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+                <EachTextContainer>
+                  <EachText1>{store.storeName}</EachText1>
+                  <EachText2>
+                    <p style={{ color: "RED", display: "inline" }}>★ </p>
+                    <p style={{ display: "inline" }}>
+                      {store.avgRatingVO.averageRating}
+                    </p>
+                    <p
+                      style={{
+                        color: "#a4a4a4",
+                        display: "inline",
+                        marginLeft: "5px",
+                      }}
+                    >
+                      {store.brandVO.brandFood}ㆍ{store.storeAddr}
+                    </p>
+                  </EachText2>
+                </EachTextContainer>
+              </EachStore>
+            </StyledLink>
+          ))}
+        </StoresContainer>
       </BrandStoresBlock>
     </>
   );

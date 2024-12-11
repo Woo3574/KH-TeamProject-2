@@ -9,7 +9,7 @@ NOCACHE;
 --유저_테이블 생성
 CREATE TABLE MENU_TB (
 	menu_no INTEGER NOT NULL PRIMARY KEY,	/*회원 번호*/
-	brand_name VARCHAR2(20) NOT NULL,		/*브랜드명*/
+	bra`nd_name VARCHAR2(20) NOT NULL,		/*브랜드명*/
 	menu_name VARCHAR2(50) NOT NULL,		/*지점명*/
 	menu_img VARCHAR2(200) NOT NULL		/*프로필이미지*/
 );
