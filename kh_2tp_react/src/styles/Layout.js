@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NavBar1 from "../components/NavBar1";
 import NavBar2 from "../components/NavBar2";
 import NavBar3 from "../components/NavBar3";
-import HomeItem from "../components/PCHome";
+import PCHome from "../components/PCHome";
 import { useState, useEffect, useCallback } from "react";
 import AxiosApi from "../api/AxiosApi";
 
@@ -64,10 +64,39 @@ const Layout = () => {
   }, [getDataFromServerAndUpdateStoreList, region, brandName, reservationTime]);
 
 
+  // 위에는 PCHome Data통신----------아래는 MobileHome Data 통신---------------------------------------------------------------------------
+  const [mobileSearchData, setMobileSearchDAta] = useState("");
+
+  const handleSearch = useCallback(async (searchData) => {
+    console.log("검색어:", searchData); // 검색어 확인
+    if (searchData === mobileSearchData) {
+      console.log("검색어가 동일하므로 API 호출을 생략합니다.");
+      return;
+    }
+    setMobileSearchDAta(searchData);
+  
+    if (searchData) {
+      try {
+        const rsp = await AxiosApi.getMobileHomeData(searchData);
+        setDataReceivedAfterSearch(rsp);
+      } catch (error) {
+        console.error("검색 실패:", error);
+      }
+    } else {
+      getDataFromServerAndUpdateStoreList(region, brandName, reservationTime);
+    }
+  }, [mobileSearchData, region, brandName, reservationTime, getDataFromServerAndUpdateStoreList]);
+  
+   
+
+  
   return (
     <>
       <StyledHeader>
-        <NavBar1 />
+      <NavBar1 onSearch={(searchData) => {
+        console.log("onSearch 호출됨, searchData:", searchData);
+        handleSearch(searchData);
+      }} />
         <NavBar2
           getDataFromServerAndUpdateStoreList={
             getDataFromServerAndUpdateStoreList
@@ -80,7 +109,7 @@ const Layout = () => {
         {/* 디버깅용 상태 출력 */}
         {console.log("현재 stores 상태:", dataReceivedAfterSearch)}{""}
         {location.pathname === "/" && (
-        <HomeItem dataReceivedAfterSearch={dataReceivedAfterSearch} />
+        <PCHome dataReceivedAfterSearch={dataReceivedAfterSearch} />
       )}
         <Outlet />
       </StyledMain>

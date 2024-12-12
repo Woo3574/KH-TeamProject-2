@@ -74,17 +74,13 @@ const Main = () => {
       
       {/* PCHome: PC 화면용 데이터 */} 
       <PCHome dataReceivedAfterSearch={dataReceivedAfterSearch}/>
-   {/* MobileHome: 모바일 화면용 데이터 */}
-   <NavBar1 onSearch={(searchData) => {
+      {/* MobileHome: 모바일 화면용 데이터 */}
+      <NavBar1 onSearch={(searchData) => {
         console.log("onSearch 호출됨, searchData:", searchData);
         handleSearch(searchData);
       }} />
 
-      <MobileHome
-        dataReceivedAfterSearch={dataReceivedAfterSearch}
-        mobileSearchData={mobileSearchData}
-        onSearch={handleSearch}
-      />
+
     </>
   );
 };

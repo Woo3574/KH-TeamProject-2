@@ -44,11 +44,9 @@ const Right = styled.div`
   }
 
   @media (max-width: 760px) {
-      display: none;
+    display: none;
   }
 `;
-
-// 모바일 화면시 ------------------------------------------------------------
 
 const MobileRight = styled.div`
   width: 60%;
@@ -62,8 +60,8 @@ const MobileRight = styled.div`
 `;
 
 const WriteSearch = styled.div`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
 const MobileInput = styled.input`
@@ -74,33 +72,30 @@ const MobileInput = styled.input`
 `;
 
 const MobileButton = styled.button`
-  width: 40px; /* 원의 너비 */
-  aspect-ratio: 1 / 1; /* 넓이와 높이를 1 : 1 비율로 유지 시킴 */
+  width: 40px;
+  aspect-ratio: 1 / 1;
   min-width: 30px;
   min-height: 30px;
-  background-color: black; /* 원의 배경색 */
-  border-radius: 50%; /* 둥근 모양 */
-  border: none; /* 기본 버튼 테두리 제거 */
-  outline: none; /* 포커스 시 나타나는 테두리 제거 */
-  background-image: url(https://firebasestorage.googleapis.com/v0/b/photo-island-eeaa3.firebasestorage.app/o/PAIKBOOKER_BRAND_IMG%2Fsearh.png?alt=media&token=cbfec402-d857-4edc-be0c-a8434cd526fb); /* 동적으로 이미지 경로 설정 */
-  background-size: 50% 50%; /* 이미지 크기 맞춤 */
-  background-position: center; /* 이미지 위치 */
-  background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
-  cursor: pointer; /* 클릭 가능한 포인터 */
+  background-color: black;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/photo-island-eeaa3.firebasestorage.app/o/PAIKBOOKER_BRAND_IMG%2Fsearh.png?alt=media&token=cbfec402-d857-4edc-be0c-a8434cd526fb);
+  background-size: 50% 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
 
-  /* 호버 및 클릭 시 효과 */
   &:hover {
-    opacity: 0.8; /* 호버 효과 */
+    opacity: 0.8;
   }
 
   &:active {
-    transform: scale(0.95); /* 클릭 시 살짝 축소 */
+    transform: scale(0.95);
   }
-
-
 `;
 
-const NavBar1 = ({onSearch}) => {
+const NavBar1 = ({ onSearch }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 760);
   const [mobileSearchData, setMobileSearchData] = useState("");
 
@@ -111,16 +106,23 @@ const NavBar1 = ({onSearch}) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // 검색어 상태 업데이트
   const writeData = (e) => {
-    setMobileSearchData(e.target.value)
-  }
+    setMobileSearchData(e.target.value);
+  };
 
- 
+  // 검색 버튼 클릭 시 부모 컴포넌트로 검색어 전달
   const handleSearch = () => {
+    const searchData = {
+      region: mobileSearchData, // region은 예시로 mobileSearchData를 사용 (지역 등으로 수정 가능)
+      brandName: mobileSearchData, // brandName도 마찬가지로
+      reservationTime: mobileSearchData, // reservationTime도
+    };
+    console.log("검색된 값: ", searchData); // 이 로그를 통해 값이 제대로 전달되는지 확인
     if (typeof onSearch === "function") {
-      onSearch(mobileSearchData);
+      onSearch(searchData);  // 부모에게 검색어 전달
     } else {
-      console.warn("onSearch prop이132 전달되지 않았습니다.");
+      console.warn("onSearch prop이 전달되지 않았습니다.");
     }
   };
 
@@ -134,6 +136,7 @@ const NavBar1 = ({onSearch}) => {
           />
         </Link>
       </Left>
+
       {!isMobile ? (
         <Right>
           <Link to="/LoginHome">
@@ -143,13 +146,17 @@ const NavBar1 = ({onSearch}) => {
             />
           </Link>
         </Right>
-      ) : (     
+      ) : (
         <MobileRight>
           <WriteSearch>
-              <p style={{fontSize: '13px', fontWeight:'300'}}>찾으시는 곳이 있으신가요?</p>
-              <MobileInput placeholder="검색해 보세요." value={mobileSearchData} onChange={writeData}/>
+            <p style={{ fontSize: "13px", fontWeight: "300" }}>찾으시는 곳이 있으신가요?</p>
+            <MobileInput
+              placeholder="검색해 보세요."
+              value={mobileSearchData}
+              onChange={writeData}  // 입력값 상태 업데이트
+            />
           </WriteSearch>
-          <MobileButton onClick={handleSearch}/>
+          <MobileButton onClick={handleSearch} />  {/* 검색 버튼 클릭 시 handleSearch 호출 */}
         </MobileRight>
       )}
     </Background>
