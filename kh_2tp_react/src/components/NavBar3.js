@@ -16,6 +16,12 @@ const Background = styled.div`
   position: fixed;
   z-index: 1000;
   background-color: #fff;
+
+  @media (max-width:760px) {
+    width: 100%;
+    height: 90px;
+    top: 70px;
+  }
 `;
 
 const BrandContainerWrapper = styled.div`

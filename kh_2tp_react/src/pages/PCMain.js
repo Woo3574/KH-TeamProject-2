@@ -3,12 +3,12 @@ import GlobalStyle from "../styles/GlobalStyle";
 import { useCallback, useState, useEffect } from "react";
 import AxiosApi from "../api/AxiosApi";
 
-const Main = () => {
+const PCMain = () => {
 
   // 카테고리 Dropdown 목록  
   const [brandName, setBrandName] = useState("");
   const [reservationTime, setReservationTime] = useState("");
-  const [region, setRegion] = useState("");
+  const [region, setRegion] = useState("")
 
   
   // Main 화면 띄어주는 Component에 Data 전달 (조건 검색 후 받은 Data[])
@@ -45,9 +45,9 @@ const Main = () => {
       <GlobalStyle />
       {/* 디버깅용 상태 출력 */}
       {console.log("현재 stores 상태:", dataReceivedAfterSearch)}
-      <HomeItem dataReceivedAfterSearch={dataReceivedAfterSearch} />
+      <HomeItem dataReceivedAfterSearch={dataReceivedAfterSearch}/>
     </>
   );
 };
 
-export default Main;
+export default PCMain;

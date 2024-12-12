@@ -3,23 +3,32 @@ import styled from "styled-components";
 import AxiosApi from "../../api/AxiosApi";
 import { useNavigate } from "react-router-dom";
 
-const SearchBox = styled.div`
-width: 72%;
-height: 65px;
-border: 1px solid #d9d9d9;
-border-radius: 50px;
-box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.1);
-display: flex;
-justify-content: center;
-align-items: center;
-`;
-
 const Container =styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  @media (max-width:760px) {
+    display: none;
+  }
+`;
+
+const SearchBox = styled.div`
+  width: 72%;
+  height: 65px;
+  border: 1px solid #d9d9d9;
+  border-radius: 50px;
+  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width:780px) {
+    height: auto;
+  
+  }
 `;
 
 const DropdownContainer = styled.div`

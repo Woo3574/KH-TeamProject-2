@@ -223,7 +223,6 @@ const ArrowButton = styled.button`
 const HomeItem = ({ dataReceivedAfterSearch }) => {
   const [sortType, setSortType] = useState("name");
   const [sortByDistance, setSortByDistance] = useState(false);
-  const [age, setAge] = useState('');
   // containerRef를 배열로 설정
   const containerRefs = useRef([]);
 
