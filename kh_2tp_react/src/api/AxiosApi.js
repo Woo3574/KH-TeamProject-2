@@ -82,6 +82,11 @@ const AxiosApi = {
     return response.data;
   },
 
+  // 브랜드 페이지 추가
+  getBrandDetails: (brandNo) => {
+    return axios.get(PAIKBOOKER_DOMAIN + `/brand/${brandNo}`);
+  }, 
+
   // NavBar 검색
   navBarSearching: async (region, brandName, reservationTime) => {
     try {
@@ -184,11 +189,10 @@ const AxiosApi = {
     return await axios.delete(PAIKBOOKER_DOMAIN + `/auth/delete/${rvNo}`);
   },
 
-  // 브랜드 페이지 추가
-  getBrandDetails: (brandNo) => {
-    return axios.get(PAIKBOOKER_DOMAIN + `/brand/${brandNo}`);
-  },
-
+  // MobileHome Search
+  getMobileHomeData: async () => {
+    return await axios.get(PAIKBOOKER_DOMAIN + `?`);
+  }
 
 };
 

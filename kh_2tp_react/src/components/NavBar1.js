@@ -100,7 +100,7 @@ const MobileButton = styled.button`
 
 `;
 
-const NavBar1 = () => {
+const NavBar1 = ({onSearch}) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 760);
   const [mobileSearchData, setMobileSearchData] = useState("");
 
@@ -115,8 +115,13 @@ const NavBar1 = () => {
     setMobileSearchData(e.target.value)
   }
 
+ 
   const handleSearch = () => {
-    onSearch(mobileSearchData);
+    if (typeof onSearch === "function") {
+      onSearch(mobileSearchData);
+    } else {
+      console.warn("onSearch prop이132 전달되지 않았습니다.");
+    }
   };
 
   return (

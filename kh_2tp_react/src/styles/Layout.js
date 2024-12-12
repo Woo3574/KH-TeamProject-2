@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NavBar1 from "../components/NavBar1";
 import NavBar2 from "../components/NavBar2";
 import NavBar3 from "../components/NavBar3";
-import HomeItem from "../components/HomeItems";
+import HomeItem from "../components/PCHome";
 import { useState, useEffect, useCallback } from "react";
 import AxiosApi from "../api/AxiosApi";
 

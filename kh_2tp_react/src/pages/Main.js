@@ -1,16 +1,17 @@
-import HomeItem from "../components/HomeItems";
+import PCHome from "../components/PCHome";
+import MobileHome from "../components/MobileHome";
+import NavBar1 from "../components/NavBar1";
 import GlobalStyle from "../styles/GlobalStyle";
 import { useCallback, useState, useEffect } from "react";
 import AxiosApi from "../api/AxiosApi";
 
-const PCMain = () => {
+const Main = () => {
 
   // 카테고리 Dropdown 목록  
   const [brandName, setBrandName] = useState("");
   const [reservationTime, setReservationTime] = useState("");
   const [region, setRegion] = useState("")
 
-  
   // Main 화면 띄어주는 Component에 Data 전달 (조건 검색 후 받은 Data[])
   const [dataReceivedAfterSearch, setDataReceivedAfterSearch] = useState([]); // 검색된 매장들
 
@@ -40,14 +41,52 @@ const PCMain = () => {
   }, [getDataFromServerAndUpdateStoreList, region, brandName, reservationTime]);
 
 
+  // 위에는 PCHome Data통신----------아래는 MobileHome Data 통신---------------------------------------------------------------------------
+  const [mobileSearchData, setMobileSearchDAta] = useState("");
+
+  const handleSearch = useCallback(async (searchData) => {
+    console.log("검색어:", searchData); // 검색어 확인
+    if (searchData === mobileSearchData) {
+      console.log("검색어가 동일하므로 API 호출을 생략합니다.");
+      return;
+    }
+    setMobileSearchDAta(searchData);
+  
+    if (searchData) {
+      try {
+        const rsp = await AxiosApi.getMobileHomeData(searchData);
+        setDataReceivedAfterSearch(rsp);
+      } catch (error) {
+        console.error("검색 실패:", error);
+      }
+    } else {
+      getDataFromServerAndUpdateStoreList(region, brandName, reservationTime);
+    }
+  }, [mobileSearchData, region, brandName, reservationTime, getDataFromServerAndUpdateStoreList]);
+  
+   
+
   return (
     <>
       <GlobalStyle />
       {/* 디버깅용 상태 출력 */}
       {console.log("현재 stores 상태:", dataReceivedAfterSearch)}
-      <HomeItem dataReceivedAfterSearch={dataReceivedAfterSearch}/>
+      
+      {/* PCHome: PC 화면용 데이터 */} 
+      <PCHome dataReceivedAfterSearch={dataReceivedAfterSearch}/>
+   {/* MobileHome: 모바일 화면용 데이터 */}
+   <NavBar1 onSearch={(searchData) => {
+        console.log("onSearch 호출됨, searchData:", searchData);
+        handleSearch(searchData);
+      }} />
+
+      <MobileHome
+        dataReceivedAfterSearch={dataReceivedAfterSearch}
+        mobileSearchData={mobileSearchData}
+        onSearch={handleSearch}
+      />
     </>
   );
 };
 
-export default PCMain;
+export default Main;
