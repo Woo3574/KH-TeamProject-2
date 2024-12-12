@@ -23,7 +23,6 @@ const StoreReservationMenuTitle = styled.div`
   font-weight: 500;
   font-family: "Noto Sans KR", sans-serif;
   position: relative;
-
 `;
 
 // 시간 버튼 컨테이너
@@ -240,11 +239,12 @@ const StoreDetailReservation = () => {
       rPersonCnt: selectedPerson,
       storeNo: Number(storeNo),
       storeName: storeName,
+      userId: localStorage.getItem("loggedInUserId"),
     };
     try {
       await AxiosApi.createReservation(reservationData);
       alert(
-        `${storeName} ${reservationData.rTime}:00 ${reservationData.rPersonCnt}명\n예약이 성공적으로 완료되었습니다!`
+        `${reservationData.userId}님,\n${storeName} ${reservationData.rTime}:00 ${reservationData.rPersonCnt}명\n예약이 성공적으로 완료되었습니다!`
       );
 
       setSelectedTime(null);

@@ -14,7 +14,7 @@ const StoreName = styled.div`
   width: 90vw;
   height: 40px;
   left: 3vw;
-  margin-left: 10px;
+  margin-left: 20px;
   font-size: 1.8em;
   font-weight: 500;
   font-family: "Noto Sans KR", sans-serif;
@@ -94,7 +94,7 @@ const StoreAddrAndPhoneContainer = styled.div`
 const StoreAddr = styled.div`
   box-sizing: border-box;
   margin-top: 5px;
-  font-size: 1.2em;
+  font-size: 1.4em;
   font-weight: 400;
   text-align: left;
 `;
@@ -152,6 +152,8 @@ const StoreRatingText = styled.div`
   position: relative;
   line-height: 1.5em;
 `;
+
+
 
 const StoreRatingStars = styled.div`
   box-sizing: border-box;
@@ -310,16 +312,10 @@ const StoreDetail = () => {
           </BrandImgContainer>
           <StoreInfoContainer>
             <StoreAddrAndPhoneContainer>
-              <StoreAddr>
-                <p>{store.storeAddr}</p>
-              </StoreAddr>
-              <StoreHourContainer>
-                <p>{isOpen}</p>
-              </StoreHourContainer>
+              <StoreAddr>{store.storeAddr}</StoreAddr>
+              <StoreHourContainer>{isOpen}</StoreHourContainer>
               <StorePhoneContainer>
-                <StorePhone>
-                  <p>{store.storePhone}</p>
-                </StorePhone>
+                <StorePhone>{store.storePhone}</StorePhone>
                 <StorePhoneImg>
                   <PhoneFilled style={{ fontSize: "20px" }} />
                 </StorePhoneImg>
@@ -328,7 +324,9 @@ const StoreDetail = () => {
             <StoreRatingContainer>
               <StoreRatingText>
                 가격
-                <br />맛<br />
+                <br />
+                맛
+                <br />
                 분위기
                 <br />
                 친절함
@@ -340,6 +338,14 @@ const StoreDetail = () => {
                   defaultValue={avgPrice}
                   precision={0.5}
                   readOnly
+                  sx={{
+                    "& .MuiRating-icon": {
+                      fontSize: "1.45em", // 채워진 별 크기
+                    },
+                    "& .MuiRating-iconEmpty": {
+                      fontSize: "1.45em", // 빈 별 크기
+                    },
+                  }}
                 />
                 <br />
                 <Rating
@@ -347,13 +353,28 @@ const StoreDetail = () => {
                   defaultValue={avgTaste}
                   precision={0.5}
                   readOnly
+                  sx={{
+                    "& .MuiRating-icon": {
+                      fontSize: "1.45em", // 채워진 별 크기
+                    },
+                    "& .MuiRating-iconEmpty": {
+                      fontSize: "1.45em", // 빈 별 크기
+                    },
+                  }}
                 />
                 <br />
                 <Rating
                   name="half-rating-read"
                   defaultValue={avgVibe}
                   precision={0.5}
-                  readOnly
+                  readOnly                  sx={{
+                    "& .MuiRating-icon": {
+                      fontSize: "1.45em", // 채워진 별 크기
+                    },
+                    "& .MuiRating-iconEmpty": {
+                      fontSize: "1.45em", // 빈 별 크기
+                    },
+                  }}
                 />
                 <br />
                 <Rating
@@ -361,6 +382,14 @@ const StoreDetail = () => {
                   defaultValue={avgKind}
                   precision={0.5}
                   readOnly
+                  sx={{
+                    "& .MuiRating-icon": {
+                      fontSize: "1.45em", // 채워진 별 크기
+                    },
+                    "& .MuiRating-iconEmpty": {
+                      fontSize: "1.45em", // 빈 별 크기
+                    },
+                  }}
                 />
                 <br />
               </StoreRatingStars>

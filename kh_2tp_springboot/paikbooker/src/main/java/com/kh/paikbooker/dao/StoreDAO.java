@@ -1,9 +1,6 @@
 package com.kh.paikbooker.dao;
 
-import com.kh.paikbooker.vo.MenuVO;
-import com.kh.paikbooker.vo.ReservationVO;
-import com.kh.paikbooker.vo.ReviewVO;
-import com.kh.paikbooker.vo.StoreVO;
+import com.kh.paikbooker.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -93,8 +90,8 @@ public class StoreDAO {
     // 예약) 새로운 예약 생성
     public void addReservation(ReservationVO reservationVO, int storeNo) {
         jdbcTemplate.update(INSERT_RESERVATIONS,
-                reservationVO.getRTime(), // R_TIME
-                reservationVO.getRPersonCnt(), // R_PERSON_CNT
+                reservationVO.getrTime(), // R_TIME
+                reservationVO.getrPersonCnt(), // R_PERSON_CNT
                 reservationVO.getUserId(), // USER_ID
                 reservationVO.getStoreNo(), // STORE_NO
                 reservationVO.getUserId(), // USER_ID (WHERE)
@@ -118,4 +115,3 @@ public class StoreDAO {
 
 
 }
-

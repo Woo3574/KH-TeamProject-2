@@ -2,10 +2,7 @@ package com.kh.paikbooker.controller;
 
 import com.kh.paikbooker.dao.StoreDAO;
 //import com.kh.paikbooker.service.StoreService;
-import com.kh.paikbooker.vo.MenuVO;
-import com.kh.paikbooker.vo.ReservationVO;
-import com.kh.paikbooker.vo.ReviewVO;
-import com.kh.paikbooker.vo.StoreVO;
+import com.kh.paikbooker.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,12 +77,11 @@ public class StoreController {
     @PostMapping("/{storeNo}/reservations")
     public ResponseEntity<?> addReservation(
             @RequestBody Map<String, Object> submitData) {
-            ReservationVO reservationVO = new ReservationVO();
+        ReservationVO reservationVO = new ReservationVO();
         try {
-            reservationVO.setRTime((String) submitData.get("rTime"));
-            reservationVO.setRPersonCnt((Integer) submitData.get("rPersonCnt"));
-            String userId = "testid01"; // 임시
-            reservationVO.setUserId(userId);
+            reservationVO.setrTime((String) submitData.get("rTime"));
+            reservationVO.setrPersonCnt((Integer) submitData.get("rPersonCnt"));
+            reservationVO.setUserId((String) submitData.get("userId"));
             reservationVO.setStoreNo((Integer) submitData.get("storeNo"));
 
             // DAO addReservation 메소드 호출

@@ -132,7 +132,7 @@ public class SearchDropDownDAO {
 
             // RESERVATION_TB 테이블에서 가져온 컬럼
             ReservationVO reservation = new ReservationVO();
-            reservation.setRTime(rs.getString("R_TIME"));
+            reservation.setrTime(rs.getString("R_TIME"));
             store.setReservationTimeVO(reservation); // StoreVO의 reservationTimeVO 필드에 예약 정보 추가
 
             return store;

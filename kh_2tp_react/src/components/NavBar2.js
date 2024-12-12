@@ -15,28 +15,17 @@ const Background = styled.div`
   background-color: #fff; /* 배경 색 */
 `;
 
-const SearchBox = styled.div`
-  width: 72%;
-  height: 65px;
-  border: 1px solid #d9d9d9;
-  border-radius: 50px;
-  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+
 
 const NavBar2 = ({ getDataFromServerAndUpdateStoreList }) => {
   return (
     <>
       <Background>
-        <SearchBox>
         <StoreSearch
               getDataFromServerAndUpdateStoreList={
                 getDataFromServerAndUpdateStoreList
               }
             />
-        </SearchBox>
       </Background>
     </>
   );

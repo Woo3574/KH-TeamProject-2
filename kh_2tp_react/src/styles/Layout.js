@@ -6,6 +6,13 @@ import NavBar3 from "../components/NavBar3";
 import HomeItem from "../components/HomeItems";
 import { useState, useEffect, useCallback } from "react";
 import AxiosApi from "../api/AxiosApi";
+const Container = styled.div`
+  width: 1280px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+`;
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -13,6 +20,7 @@ const StyledHeader = styled.header`
 `;
 
 const StyledMain = styled.main`
+  flex-grow: 1; /* 남은 공간을 차지 */
   height: calc(100vh - 260px);
 `;
 
@@ -54,6 +62,7 @@ const Layout = () => {
 
   return (
     <>
+      <Container>
       <StyledHeader>
         <NavBar1 />
         <NavBar2
@@ -72,6 +81,7 @@ const Layout = () => {
       )}
         <Outlet />
       </StyledMain>
+      </Container>
     </>
   );
 };
