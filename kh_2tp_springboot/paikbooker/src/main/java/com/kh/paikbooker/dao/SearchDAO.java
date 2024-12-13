@@ -17,9 +17,10 @@ import java.util.Map;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class SearchDropDownDAO {
+public class SearchDAO {
     private final JdbcTemplate jdbcTemplate;
 
+    // NavBar에 있는 Logo 눌렀을때 필요한 data 불러오는 메서드
     public List<StoreVO> brandStoresByBrandNo(int brandNo) {
         String sql = "SELECT s.STORE_NAME, s.STORE_NO, s.STORE_PHONE, s.STORE_ADDR, s.STORE_MAP, " +
                 "b.BRAND_NO, b.BRAND_NAME, b.BRAND_FOOD, b.BRAND_LOGO2, b.BRAND_IMG1, b.BRAND_IMG2, " +
@@ -36,6 +37,7 @@ public class SearchDropDownDAO {
         return jdbcTemplate.query(sql, new Object[]{brandNo}, new StoreRowMapper());
     }
 
+    // Main 화면 렌더링시 필요한 data 불러오는 메서드
     public List<StoreVO> searchData(String region, String brandName, String reservationTime) {
         StringBuilder sql = new StringBuilder(
                 "SELECT s.STORE_NAME, s.STORE_NO, s.STORE_PHONE, s.STORE_ADDR, s.STORE_MAP, " +
@@ -100,6 +102,46 @@ public class SearchDropDownDAO {
     public List<String> getBrandNames() {
         String sql = "SELECT DISTINCT BRAND_NAME FROM BRAND_TB";
         return jdbcTemplate.queryForList(sql, String.class);
+    }
+
+    public List<StoreVO> mobileSearchByKeyword(String keyword) {
+        // SQL 쿼리의 기본 구조
+        StringBuilder sql = new StringBuilder(
+                "SELECT s.STORE_NAME, s.STORE_NO, s.STORE_PHONE, s.STORE_ADDR, s.STORE_MAP, " +
+                        "b.BRAND_NAME, b.BRAND_NO, b.BRAND_FOOD, b.BRAND_LOGO2, b.BRAND_IMG1, b.BRAND_IMG2, " +
+                        "rv.AVERAGE_RATING, res.R_TIME " +
+                        "FROM STORE_TB s " +
+                        "JOIN BRAND_TB b ON s.BRAND_NAME = b.BRAND_NAME " +
+                        "LEFT JOIN V_STORE_AVG rv ON s.STORE_NAME = rv.STORE_NAME " +
+                        "LEFT JOIN RESERVATION_TB res ON s.STORE_NO = res.STORE_NO " +
+                        "WHERE 1=1 " // 기본 조건 (추가적인 WHERE 조건을 붙이기 쉽게 하기 위해)
+        );
+
+        // 입력 키워드를 공백으로 분리
+        String[] keywords = keyword.trim().toLowerCase().split("\\s+");
+
+        // 각 키워드에 대해 조건 추가
+        for (String word : keywords) {
+            String likeKeyword = "%" + word + "%";
+            sql.append(" AND (")
+                    .append("LOWER(b.BRAND_NAME) LIKE ? OR ")
+                    .append("LOWER(res.R_TIME) LIKE ? OR ")
+                    .append("LOWER(s.STORE_NAME) LIKE ?")
+                    .append(")");
+        }
+
+        // 파라미터 배열 생성 (각 키워드당 3개씩 추가됨)
+        Object[] params = new Object[keywords.length * 3];
+        int index = 0;
+        for (String word : keywords) {
+            String likeKeyword = "%" + word + "%";
+            params[index++] = likeKeyword; // BRAND_NAME
+            params[index++] = likeKeyword; // R_TIME
+            params[index++] = likeKeyword; // STORE_NAME
+        }
+
+        // JDBC 템플릿으로 쿼리 실행
+        return jdbcTemplate.query(sql.toString(), params, new StoreRowMapper());
     }
 
     // StoreVO 매핑을 위한 RowMapper 클래스

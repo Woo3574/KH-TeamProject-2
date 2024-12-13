@@ -190,10 +190,11 @@ const AxiosApi = {
   },
 
   // MobileHome Search
-  getMobileHomeData: async () => {
-    return await axios.get(PAIKBOOKER_DOMAIN + `?`);
-  }
-
+  getMobileHomeData: async (searchData) => {
+    return await axios.get(PAIKBOOKER_DOMAIN + `/mobile/search`,{
+      params: { keyword: searchData }, // 검색어를 쿼리 파라미터로 전달
+    });
+  },
 };
 
 export default AxiosApi;

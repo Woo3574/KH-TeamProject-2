@@ -1,6 +1,6 @@
 package com.kh.paikbooker.service;
 
-import com.kh.paikbooker.dao.SearchDropDownDAO;
+import com.kh.paikbooker.dao.SearchDAO;
 import com.kh.paikbooker.vo.StoreVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class SearchDropDownService {
-    private final SearchDropDownDAO searchDropDownDAO;
+public class SearchService {
+    private final SearchDAO searchDAO;
 
     // 매장 불러오는 조건 (store_addr을 "구" 형식으로 가공)
     public List<StoreVO> searchData(String region, String brandName, String reservationTime) {
         // 원본 매장 데이터를 가져옴
-        List<StoreVO> storeList = searchDropDownDAO.searchData(region, brandName, reservationTime);
+        List<StoreVO> storeList = searchDAO.searchData(region, brandName, reservationTime);
 
         // storeList에서 주소를 "구" 형식으로 변환
         storeList.forEach(store -> {
@@ -54,11 +54,11 @@ public class SearchDropDownService {
         Map<String, List<String>> categories = new HashMap<>();
 
         // 지역 목록 가공
-        List<String> rawRegions = searchDropDownDAO.getRegions(); // 원본 주소 데이터
+        List<String> rawRegions = searchDAO.getRegions(); // 원본 주소 데이터
         List<String> processedRegions = processRegions(rawRegions); // 가공된 데이터
 
         categories.put("region", processedRegions); // 지역 목록
-        categories.put("brandName", searchDropDownDAO.getBrandNames()); // 브랜드명 목록
+        categories.put("brandName", searchDAO.getBrandNames()); // 브랜드명 목록
         return categories;
     }
 
@@ -88,7 +88,7 @@ public class SearchDropDownService {
     // 브랜드 번호로 매장 검색
     public List<StoreVO> getStoresByBrandNo(int brandNo) {
         // DAO 메서드를 호출하여 매장 리스트 가져오기
-        List<StoreVO> stores = searchDropDownDAO.brandStoresByBrandNo(brandNo);
+        List<StoreVO> stores = searchDAO.brandStoresByBrandNo(brandNo);
 
         // 매장 주소를 "~~구, ~~구" 형태로 변환
         for (StoreVO store : stores) {
@@ -122,4 +122,19 @@ public class SearchDropDownService {
 
         return formattedAddress;
     }
+
+    // {UP} PC Version-----------------------------------------------------------------------------------
+    // {Down} Mobile Version-----------------------------------------------------------------------------
+
+    // 키워드로 매장 검색
+    public List<StoreVO> mobileSearch(String keyword) {
+        // 키워드 처리 로직 (필요하면 트림이나 대소문자 정규화 등 추가 가능)
+        String processedKeyword = keyword.trim().toLowerCase();
+
+        // DAO 호출하여 검색 결과 반환
+        // 여기서 findStoresByKeyword란 : DAO 또는 Repository에서 제공하는 메서드, 이 메서드는 DB에 검색 키워드에 해당하는 결과ㅢ를 조회 및 반환
+        // 역할 : DB에 키워드 와 매칭 되는 Data를 조회하는 SQL쿼리를 실행,입력받은 ProcessKeyword를 쿼리에 전달하여 검샘결과 반환
+        return searchDAO.mobileSearchByKeyword(processedKeyword);
+    }
+
 }
