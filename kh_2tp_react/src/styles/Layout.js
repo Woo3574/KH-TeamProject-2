@@ -65,29 +65,28 @@ const Layout = () => {
 
 
   // 위에는 PCHome Data통신----------아래는 MobileHome Data 통신---------------------------------------------------------------------------
-  const [mobileSearchData, setMobileSearchDAta] = useState("");
-
-  const handleSearch = useCallback(async (searchData) => {
-    console.log("검색어:", searchData); // 검색어 확인
-    if (searchData === mobileSearchData) {
-      console.log("검색어가 동일하므로 API 호출을 생략합니다.");
-      return;
-    }
-    setMobileSearchDAta(searchData);
-  
-    if (searchData) {
-      try {
-        const rsp = await AxiosApi.getMobileHomeData(searchData);
-        setDataReceivedAfterSearch(rsp);
-      } catch (error) {
-        console.error("검색 실패:", error);
-      }
-    } else {
-      getDataFromServerAndUpdateStoreList(region, brandName, reservationTime);
-    }
-  }, [mobileSearchData, region, brandName, reservationTime, getDataFromServerAndUpdateStoreList]);
   
    
+  // NavBar1에서 받은 검색 데이터를 백엔드로 보내는 함수
+  const handleSearch = async (searchData) => {
+    try {
+      console.log("NavBar1에서 받은 데이터:", searchData);
+      
+      // Axios를 이용한 API 호출
+      const rsp = await AxiosApi.getMobileHomeData(searchData);
+
+      if (rsp.data && rsp.data.length > 0) {
+        console.log("백엔드에서 받은 검색 결과:", rsp.data);
+      } else {
+        console.log("검색 결과가 없습니다.");
+      }
+
+      // 검색 결과를 상태로 저장하여 화면에 반영
+      setDataReceivedAfterSearch(rsp.data || []);
+    } catch (error) {
+      console.error("백엔드 통신 에러:", error);
+    }
+  };
 
   
   return (

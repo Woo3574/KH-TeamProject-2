@@ -113,14 +113,8 @@ const NavBar1 = ({ onSearch }) => {
 
   // 검색 버튼 클릭 시 부모 컴포넌트로 검색어 전달
   const handleSearch = () => {
-    const searchData = {
-      region: mobileSearchData, // region은 예시로 mobileSearchData를 사용 (지역 등으로 수정 가능)
-      brandName: mobileSearchData, // brandName도 마찬가지로
-      reservationTime: mobileSearchData, // reservationTime도
-    };
-    console.log("검색된 값: ", searchData); // 이 로그를 통해 값이 제대로 전달되는지 확인
     if (typeof onSearch === "function") {
-      onSearch(searchData);  // 부모에게 검색어 전달
+      onSearch(mobileSearchData);  // 부모에게 검색어 전달
     } else {
       console.warn("onSearch prop이 전달되지 않았습니다.");
     }
@@ -137,6 +131,7 @@ const NavBar1 = ({ onSearch }) => {
         </Link>
       </Left>
 
+      {/* PC 화면: 오른쪽 프로필 이미지 */}
       {!isMobile ? (
         <Right>
           <Link to="/LoginHome">
@@ -147,6 +142,7 @@ const NavBar1 = ({ onSearch }) => {
           </Link>
         </Right>
       ) : (
+        /* 모바일 화면: 검색 입력 및 버튼 */
         <MobileRight>
           <WriteSearch>
             <p style={{ fontSize: "13px", fontWeight: "300" }}>찾으시는 곳이 있으신가요?</p>
