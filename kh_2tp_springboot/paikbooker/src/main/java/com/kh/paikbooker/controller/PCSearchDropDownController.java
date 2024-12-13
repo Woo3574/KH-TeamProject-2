@@ -16,10 +16,9 @@ import java.util.Map;
 // 로깅(logging)을 쉽게 사용할 수 있도록 자동으로 로거(Logger) 객체를 생성해주는 기능을 제공.
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/stores") //  RESTful API 설계에서 클라이언트 요청의 URL과 컨트롤러의 처리 메서드를 연결하는 역할
-@RequiredArgsConstructor // final 또는 @NonNull 필드만 초기화하는 생성자를 자동 생성.
+@RequiredArgsConstructor // fial 또는 @NonNull 필드만 초기화하는 생성자를 자동 생성.
 public class SearchDropDownController {
     private final SearchDropDownService searchDropDownService;
-
 
     // 매장 검색 API
     @GetMapping("/search") // HTTP GET 메서드는 일반적으로 데이터를 조회하는 데 사용
@@ -46,6 +45,14 @@ public class SearchDropDownController {
     public ResponseEntity<Map<String, List<String>>> getCategories() {
         Map<String, List<String>> categories = searchDropDownService.getCategories();
         return ResponseEntity.ok(categories);
+    }
+
+    // {UP} PC Version---------------- {Down} Mobile Version--------------------------------------
+
+    // 입력받은 검색 값의 결과를 반환하는 API
+    @GetMapping("/MobileMain")
+    public ResponseEntity<List<StoreVO>> mobileSearch(){
+
     }
 
 }
