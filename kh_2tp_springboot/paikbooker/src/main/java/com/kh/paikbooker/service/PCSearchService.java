@@ -137,4 +137,22 @@ public class SearchService {
         return searchDAO.mobileSearchByKeyword(processedKeyword);
     }
 
+    public Flux<StoreVO> mobileSearch(String keyword) {
+        // 키워드 처리 로직 (필요하면 트림이나 대소문자 정규화 등 추가 가능)
+        String processedKeyword = keyword.trim().toLowerCase();
+
+        // DAO 호출하여 검색 결과 반환
+        return searchDAO.mobileSearchByKeyword(processedKeyword)
+                .map(store -> {
+                    // 각 StoreVO의 주소를 "서초구, 강남구" 형태로 변환
+                    String address = store.getStoreAddr();
+                    if (address != null) {
+                        String formattedAddress = formatAddress(address); // 주소 포맷
+                        store.setStoreAddr(formattedAddress); // 변환된 주소 설정
+                    }
+                    return store; // 변환된 store 반환
+                });
+    }
+
+
 }
