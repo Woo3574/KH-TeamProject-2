@@ -1,7 +1,7 @@
 package com.kh.paikbooker.controller;
 
 
-import com.kh.paikbooker.service.SearchService;
+import com.kh.paikbooker.service.PCSearchService;
 import com.kh.paikbooker.vo.StoreVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +18,13 @@ import java.util.List;
 @RequestMapping("/brand")
 @RequiredArgsConstructor // final 또는 @NonNull 필드만 초기화하는 생성자를 자동 생성.
 public class BrandController {
-    private final SearchService searchService;
+    private final PCSearchService PCSearchService;
 
     // 매장 검색 API
     @GetMapping("/{brandNo}") // brandNo를 URL 경로에서 받아옴
     public ResponseEntity<List<StoreVO>> searchStores(@PathVariable int brandNo) {
         // 브랜드 번호에 해당하는 매장 리스트를 조회
-        List<StoreVO> brandStores = searchService.getStoresByBrandNo(brandNo);  // brandNo를 사용하여 매장 정보 필터링
+        List<StoreVO> brandStores = PCSearchService.getStoresByBrandNo(brandNo);  // brandNo를 사용하여 매장 정보 필터링
         log.info("검색된 매장 목록: {}", brandStores);  // 매장 목록 로그 출력
         return ResponseEntity.ok(brandStores); // 매장 리스트 반환
     }

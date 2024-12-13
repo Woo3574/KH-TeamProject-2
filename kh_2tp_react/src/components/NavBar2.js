@@ -14,7 +14,7 @@ const Background = styled.div`
   z-index: 1000; /* 다른 요소들 위에 표시되도록 설정 */
   background-color: #fff; /* 배경 색 */
   
-  @media (max-width:760px) {
+  @media (max-width:768px) {
     display: none;
   }
 `;

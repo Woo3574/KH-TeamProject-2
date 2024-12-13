@@ -1,6 +1,6 @@
 package com.kh.paikbooker.controller;
 
-import com.kh.paikbooker.service.SearchService;
+import com.kh.paikbooker.service.PCSearchService;
 import com.kh.paikbooker.vo.StoreVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import java.util.Map;
 @RequestMapping("/stores") //  RESTful API 설계에서 클라이언트 요청의 URL과 컨트롤러의 처리 메서드를 연결하는 역할
 @RequiredArgsConstructor // fial 또는 @NonNull 필드만 초기화하는 생성자를 자동 생성.
 public class PCSearchDropDownController {
-    private final SearchService searchService;
+    private final PCSearchService PCSearchService;
 
     // 매장 검색 API
     @GetMapping("/search") // HTTP GET 메서드는 일반적으로 데이터를 조회하는 데 사용
@@ -35,7 +35,7 @@ public class PCSearchDropDownController {
         log.error("검색 조건 - 지역: {}, 브랜드명: {}, 예약시간: {}", region, brandName, reservationTime);
 
         // StoreDao를 사용하여 조건에 맞는 매장 리스트를 조회
-        List<StoreVO> storeList = searchService.searchData(region, brandName, reservationTime);
+        List<StoreVO> storeList = PCSearchService.searchData(region, brandName, reservationTime);
         log.info("검색된 매장 목록: {}", storeList);
         return ResponseEntity.ok(storeList); // 매장 리스트 반환
     }
@@ -43,7 +43,7 @@ public class PCSearchDropDownController {
     // 카테고리 목록을 반환하는 API
     @GetMapping("/categories")
     public ResponseEntity<Map<String, List<String>>> getCategories() {
-        Map<String, List<String>> categories = searchService.getCategories();
+        Map<String, List<String>> categories = PCSearchService.getCategories();
         return ResponseEntity.ok(categories);
     }
 }

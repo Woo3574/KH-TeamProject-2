@@ -65,7 +65,7 @@ const Dropdown = styled.select`
 
   }
 
-  @media (max-width: 760px) {
+  @media (max-width: 768px) {
     font-size: calc(5px + 1vw); // 작은 화면에서의 최소 글자 크기
     padding: 5px 10px; // 작은 화면에서 패딩 조정
   }

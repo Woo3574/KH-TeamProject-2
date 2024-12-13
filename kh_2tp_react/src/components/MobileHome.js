@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
+import { StarTwoTone } from "@ant-design/icons";
 
 // 두 위도-경도 좌표 간의 거리를 계산하는 Haversine 공식
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
@@ -29,27 +30,33 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 };
 
 const MobileHomeItemBlock = styled.div`
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background-color: #fff;
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 768px; /* 너비를 768px로 고정 */
+    margin: 0 auto; /* 화면 중앙 정렬 */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+  }
 `;
 
 const DropdownContainer = styled.div`
-  width: 100%;
-  height: 30px;
-  display: flex;
-  justify-content: right;
-  position: relative;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: right;
+    position: relative;
+  }
 `;
 
 const Dropdown = styled.select`
   height: 30px; /* 드롭다운의 고정 높이 */
   text-align: 30px;
   padding-left: 30px;
-  font-size: 0.5em;
+  font-size: 0.7em;
   border: none;
   border-bottom: 1px solid black;
   margin-right: 10px;
@@ -78,7 +85,7 @@ const Dropdown = styled.select`
 `;
 
 const Background = styled.div`
-  width: 760px;
+  width: 768px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -91,7 +98,7 @@ const BrandContainer = styled.div`
   box-sizing: border-box;
   width: 100%;
   display: flex;
-  flex-direction: column;  // 세로로 나열되도록 변경
+  flex-direction: column; // 세로로 나열되도록 변경
   align-items: center;
   gap: 20px;
   position: relative;
@@ -99,12 +106,12 @@ const BrandContainer = styled.div`
 
 const BrandMain = styled.div`
   box-sizing: border-box;
-  width: 195px;
-  height: 160px;
+  width: 201px; /* 부모 요소 너비에 맞게 조정 */
+  height: 38px; /* 고정 높이 */
   margin-top: 10px;
   margin-bottom: 10px;
   box-sizing: border-box;
-  background-color: #e3e3e3;
+  background-color: none;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -112,41 +119,72 @@ const BrandMain = styled.div`
   position: relative;
 `;
 
+const NameBar = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const BrandFontBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const BrandName = styled.div`
-   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2em;  // 브랜드 이름 크기
-  font-weight: bold;  // 브랜드 이름 강조
+  padding-left: 5px;
+  font-size: 0.7em; // 브랜드 이름 크기
+  font-weight: bold; // 브랜드 이름 강조
   color: black;
-  background-color: #e3e3e3;  // 배경색 추가 (로고가 없을 때 대비용)
-  border-radius: 10px;
+  background-color: none; // 배경색 추가 (로고가 없을 때 대비용)
+`;
+
+const BrandDesc = styled.div`
+  width: 100%;
+  height: 100%;
+  padding-left: 5px;
+  font-size: 12px;
 `;
 
 const StoresContainer = styled.div`
-  width: 1060px;
+  width: 768px;
   padding-left: 70px;
   padding-right: 70px;
   margin: 0 auto;
   position: relative;
   display: flex;
-  flex-direction: column;  // 세로로 나열되도록 변경
   align-items: center;
-  gap: 20px;
+  gap: 10px;
+`;
+
+const ArrowButton = styled.button`
+  position: relative;
+  width: 50px;
+  height: 160px;
+  background-color: #e3e3e3;
+  color: black;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 1em;
+  border-radius: 10px;
+  &.left-arrow {
+    left: 0;
+  }
+  &.right-arrow {
+    right: 0;
+  }
 `;
 
 const Stores = styled.div`
   box-sizing: border-box;
   display: flex;
-  gap: 20px;
-  width: 920px;
+  width: 660px;
   white-space: nowrap;
   scroll-behavior: smooth;
   overflow-x: hidden;
   position: relative;
+  gap: 10px;
 `;
 
 const EachStore = styled.div`
@@ -207,25 +245,7 @@ const StyledLink = styled(Link)`
   transition: color 0.3s;
 `;
 
-const ArrowButton = styled.button`
-  position: absolute;
-  width: 50px;
-  height: 160px;
-  background-color: #e3e3e3;
-  color: black;
-  border: none;
-  cursor: pointer;
-  z-index: 10;
-  padding: 10px;
-  font-size: 1em;
-  border-radius: 10px;
-  &.left-arrow {
-    left: 0;
-  }
-  &.right-arrow {
-    right: 0;
-  }
-`;
+
 
 const MobileHome = ({ mobileDataReceivedAfterSearch }) => {
   const [sortType, setSortType] = useState("name");
@@ -348,9 +368,17 @@ const MobileHome = ({ mobileDataReceivedAfterSearch }) => {
                   key={brandData.brand.brandNo}
                 >
                   <BrandMain>
-                    <BrandName>
-                      {brandData.brand.brandName} {/* 브랜드 이름 표시 */}
-                    </BrandName>
+                    <NameBar>
+                        <div style={{backgroundColor:"black", width:"5px",height:"30px"}}></div>
+                        <BrandFontBox>  
+                          <BrandName>
+                            {brandData.brand.brandName} {/* 브랜드 이름 표시 */}
+                          </BrandName>
+                          <BrandDesc>
+                          <p>1</p>
+                          </BrandDesc>
+                        </BrandFontBox>
+                    </NameBar>
                   </BrandMain>
                 </StyledLink>
 

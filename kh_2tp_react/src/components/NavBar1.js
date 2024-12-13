@@ -15,7 +15,7 @@ const Background = styled.div`
   z-index: 1000;
   background-color: #fff;
 
-  @media (max-width: 760px) {
+  @media (max-width: 768px) {
     height: 70px;
     padding: 15px;
   }
@@ -43,7 +43,7 @@ const Right = styled.div`
     height: 48px;
   }
 
-  @media (max-width: 760px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
@@ -96,12 +96,12 @@ const MobileButton = styled.button`
 `;
 
 const NavBar1 = ({ onSearch }) => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 760);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [mobileSearchData, setMobileSearchData] = useState("");
 
   // 화면 크기 변경 감지
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 760);
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

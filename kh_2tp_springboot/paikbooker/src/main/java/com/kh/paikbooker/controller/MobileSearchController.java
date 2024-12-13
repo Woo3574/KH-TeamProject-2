@@ -1,7 +1,8 @@
 package com.kh.paikbooker.controller;
 
 
-import com.kh.paikbooker.service.SearchService;
+import com.kh.paikbooker.service.MobileSearchService;
+import com.kh.paikbooker.service.PCSearchService;
 import com.kh.paikbooker.vo.StoreVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor // fial 또는 @NonNull 필드만 초기화하는 생성자를 자동 생성.
 
 public class MobileSearchController {
-    private final SearchService searchService;
+    private final MobileSearchService mobileSearchService;
 
     // 입력받은 검색 값의 결과를 반환하는 API
     @GetMapping("/search")
@@ -28,7 +29,7 @@ public class MobileSearchController {
             @RequestParam("keyword") String keyword) { // 클라이언트에서 "keyword" 파라미터 전달
         try {
             // 서비스 계층에 키워드 전달, 검색 결과 반환
-            List<StoreVO> searchResults = searchService.mobileSearch(keyword);
+            List<StoreVO> searchResults = mobileSearchService.mobileSearch(keyword);
 
             if (searchResults.isEmpty()) {
                 // 검색 결과가 없을 때 No Content 상태 코드 반환

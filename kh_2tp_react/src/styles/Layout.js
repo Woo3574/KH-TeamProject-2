@@ -12,7 +12,7 @@ const StyledHeader = styled.header`
   width: 100%;
   height: 260px;
 
-  @media (max-width:760px) {
+  @media (max-width:768px) {
     width: 100%;
     height: 160px;
     display: flex;
@@ -95,7 +95,7 @@ const Layout = () => {
     useEffect(() => {
       const handleResize = () => {
         // 화면 너비가 특정 값 이하일 때 모바일로 간주 (예: 768px 이하)
-        setIsMobile(window.innerWidth <= 760);
+        setIsMobile(window.innerWidth <= 768);
       };
   
       // 초기화 및 리사이즈 이벤트 리스너

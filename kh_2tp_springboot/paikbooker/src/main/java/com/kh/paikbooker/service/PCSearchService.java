@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class SearchService {
+public class PCSearchService {
     private final SearchDAO searchDAO;
 
     // 매장 불러오는 조건 (store_addr을 "구" 형식으로 가공)
@@ -122,37 +122,5 @@ public class SearchService {
 
         return formattedAddress;
     }
-
-    // {UP} PC Version-----------------------------------------------------------------------------------
-    // {Down} Mobile Version-----------------------------------------------------------------------------
-
-    // 키워드로 매장 검색
-    public List<StoreVO> mobileSearch(String keyword) {
-        // 키워드 처리 로직 (필요하면 트림이나 대소문자 정규화 등 추가 가능)
-        String processedKeyword = keyword.trim().toLowerCase();
-
-        // DAO 호출하여 검색 결과 반환
-        // 여기서 findStoresByKeyword란 : DAO 또는 Repository에서 제공하는 메서드, 이 메서드는 DB에 검색 키워드에 해당하는 결과ㅢ를 조회 및 반환
-        // 역할 : DB에 키워드 와 매칭 되는 Data를 조회하는 SQL쿼리를 실행,입력받은 ProcessKeyword를 쿼리에 전달하여 검샘결과 반환
-        return searchDAO.mobileSearchByKeyword(processedKeyword);
-    }
-
-    public Flux<StoreVO> mobileSearch(String keyword) {
-        // 키워드 처리 로직 (필요하면 트림이나 대소문자 정규화 등 추가 가능)
-        String processedKeyword = keyword.trim().toLowerCase();
-
-        // DAO 호출하여 검색 결과 반환
-        return searchDAO.mobileSearchByKeyword(processedKeyword)
-                .map(store -> {
-                    // 각 StoreVO의 주소를 "서초구, 강남구" 형태로 변환
-                    String address = store.getStoreAddr();
-                    if (address != null) {
-                        String formattedAddress = formatAddress(address); // 주소 포맷
-                        store.setStoreAddr(formattedAddress); // 변환된 주소 설정
-                    }
-                    return store; // 변환된 store 반환
-                });
-    }
-
 
 }
