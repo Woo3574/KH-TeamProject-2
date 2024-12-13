@@ -99,7 +99,7 @@ const Button = styled.button`
 
 //--------------------------------------------------------------------------------------------------------
 
-const StoreSearch = ({ getDataFromServerAndUpdateStoreList }) => {
+const StoreSearch = ({ getPCDataFromServerAndUpdateStoreList }) => {
   const [categories, setCategories] = useState({
     region: [],
     brandName: [],
@@ -132,7 +132,7 @@ const StoreSearch = ({ getDataFromServerAndUpdateStoreList }) => {
   });
 
   const handleSearchButtonClick = () => {
-    getDataFromServerAndUpdateStoreList(regionValue, brandNameValue, reservationTimeValue);
+    getPCDataFromServerAndUpdateStoreList(regionValue, brandNameValue, reservationTimeValue);
     navigate("/"); // main 화면으로 이동
   };
 

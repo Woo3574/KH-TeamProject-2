@@ -220,7 +220,7 @@ const ArrowButton = styled.button`
   }
 `;
 
-const HomeItem = ({ dataReceivedAfterSearch }) => {
+const HomeItem = ({ PCdataReceivedAfterSearch }) => {
   const [sortType, setSortType] = useState("name");
   const [sortByDistance, setSortByDistance] = useState(false);
   // containerRef를 배열로 설정
@@ -235,9 +235,9 @@ const HomeItem = ({ dataReceivedAfterSearch }) => {
   const referenceLon = 127.03646889929213;
 
   const stores = useMemo(() => {
-    return Array.isArray(dataReceivedAfterSearch) &&
-      dataReceivedAfterSearch.length > 0
-      ? dataReceivedAfterSearch.reduce((acc, curr) => {
+    return Array.isArray(PCdataReceivedAfterSearch) &&
+      PCdataReceivedAfterSearch.length > 0
+      ? PCdataReceivedAfterSearch.reduce((acc, curr) => {
           const brand = acc.find(
             (item) => item.brand.brandName === curr.brandVO.brandName
           );
@@ -252,7 +252,7 @@ const HomeItem = ({ dataReceivedAfterSearch }) => {
           return acc;
         }, [])
       : [];
-  }, [dataReceivedAfterSearch]);
+  }, [PCdataReceivedAfterSearch]);
 
   const sortedStores = useMemo(() => {
     return stores.map((brandData) => {

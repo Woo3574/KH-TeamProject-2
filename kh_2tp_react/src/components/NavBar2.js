@@ -21,13 +21,13 @@ const Background = styled.div`
 
 
 
-const NavBar2 = ({ getDataFromServerAndUpdateStoreList }) => {
+const NavBar2 = ({ getPCDataFromServerAndUpdateStoreList }) => {
   return (
     <>
       <Background>
         <StoreSearch
-              getDataFromServerAndUpdateStoreList={
-                getDataFromServerAndUpdateStoreList
+              getPCDataFromServerAndUpdateStoreList={
+                getPCDataFromServerAndUpdateStoreList
               }
             />
       </Background>
