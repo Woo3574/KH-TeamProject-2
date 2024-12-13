@@ -14,19 +14,15 @@ const StyledHeader = styled.header`
 
   @media (max-width:760px) {
     width: 100%;
-    height: 70px;
+    height: 160px;
     display: flex;
     flex-direction: row;
   }
 `;
 
 const StyledMain = styled.main`
+  width: 100%;
   height: calc(100vh - 260px);
-
-  @media (max-width:760px) {
-    width: 100%;
-    height: calc(100vh - 170px);
-  }
 `;
 
 const Layout = () => {

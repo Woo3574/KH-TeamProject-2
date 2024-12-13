@@ -28,26 +28,28 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   return R * c;
 };
 
-const HomeItemBlock = styled.div`
+const MobileHomeItemBlock = styled.div`
   width: 100%;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   flex-direction: column;
   background-color: #fff;
-  margin-top: 20px;
 `;
 
 const DropdownContainer = styled.div`
-  width: 1280px;
+  width: 100%;
+  height: 30px;
   display: flex;
   justify-content: right;
   position: relative;
 `;
 
 const Dropdown = styled.select`
-  padding: 5px 10px;
-  font-size: 1em;
+  height: 30px; /* 드롭다운의 고정 높이 */
+  text-align: 30px;
+  padding-left: 30px;
+  font-size: 0.5em;
   border: none;
   border-bottom: 1px solid black;
   margin-right: 10px;
@@ -76,7 +78,7 @@ const Dropdown = styled.select`
 `;
 
 const Background = styled.div`
-  width: 1280px;
+  width: 760px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -87,7 +89,7 @@ const Background = styled.div`
 
 const BrandContainer = styled.div`
   box-sizing: border-box;
-  width: 1280px;
+  width: 100%;
   display: flex;
   flex-direction: column;  // 세로로 나열되도록 변경
   align-items: center;
@@ -110,7 +112,7 @@ const BrandMain = styled.div`
   position: relative;
 `;
 
-const BrandLogo = styled.div`
+const BrandName = styled.div`
    box-sizing: border-box;
   width: 100%;
   height: 100%;
@@ -326,7 +328,7 @@ const MobileHome = ({ mobileDataReceivedAfterSearch }) => {
 
   return (
     <>
-      <HomeItemBlock>
+      <MobileHomeItemBlock>
         <DropdownContainer>
           <Dropdown onChange={handleSortChange}>
             <option value="" hidden>
@@ -346,9 +348,9 @@ const MobileHome = ({ mobileDataReceivedAfterSearch }) => {
                   key={brandData.brand.brandNo}
                 >
                   <BrandMain>
-                    <BrandLogo>
+                    <BrandName>
                       {brandData.brand.brandName} {/* 브랜드 이름 표시 */}
-                    </BrandLogo>
+                    </BrandName>
                   </BrandMain>
                 </StyledLink>
 
@@ -403,7 +405,7 @@ const MobileHome = ({ mobileDataReceivedAfterSearch }) => {
             ))}
           </BrandContainer>
         </Background>
-      </HomeItemBlock>
+      </MobileHomeItemBlock>
     </>
   );
 };
